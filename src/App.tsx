@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 
@@ -20,10 +20,12 @@ import { FinanceProvider } from '@/contexts/FinanceContext';
 // Layout component to wrap all pages with sidebar
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useIsMobile();
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/';
   
   return (
     <div className="flex h-screen w-full bg-background">
-      {!isMobile && <SidebarNav />}
+      {!isMobile && !isLoginPage && <SidebarNav />}
       
       <div className="flex-1 flex flex-col h-screen overflow-y-auto transition-all duration-300">
         {children}
@@ -48,7 +50,6 @@ function App() {
               <Route path="/news" element={<News />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/billing" element={<Billing />} />
-              <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AppLayout>
