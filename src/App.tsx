@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from "@/components/ui/sonner";
@@ -14,6 +13,7 @@ import Settings from '@/pages/Settings';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import { SidebarNav } from '@/components/SidebarNav';
+import { MobileNav } from '@/components/MobileNav';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { FinanceProvider } from '@/contexts/FinanceContext';
 
@@ -22,15 +22,17 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useIsMobile();
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
-  
+   
   return (
     <div className="flex h-screen w-full bg-background">
       {!isMobile && !isLoginPage && <SidebarNav />}
-      
+             
       <div className="flex-1 flex flex-col h-screen overflow-y-auto transition-all duration-300">
         {children}
-        {isMobile}
       </div>
+      
+      {/* Mobile Navigation - only show on mobile and not on login page */}
+      {isMobile && !isLoginPage && <MobileNav />}
     </div>
   );
 };

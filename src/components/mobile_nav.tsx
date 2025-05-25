@@ -1,4 +1,4 @@
-import { Home, PieChart, User } from "lucide-react";
+import { Home, PieChart, User, BarChart3, Newspaper, Settings } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 export const MobileNav = () => {
@@ -7,10 +7,10 @@ export const MobileNav = () => {
     const navItems = [
         { to: "/dashboard", icon: <Home className="h-5 w-5" />, label: "Dashboard" },
         { to: "/portfolio", icon: <PieChart className="h-5 w-5" />, label: "Portfolio" },
-        { to: "/insights", icon: <PieChart className="h-5 w-5" />, label: "Insights" },
+        { to: "/insights", icon: <BarChart3 className="h-5 w-5" />, label: "Insights" },
         { to: "/reports", icon: <PieChart className="h-5 w-5" />, label: "Reports" },
-        { to: "/news", icon: <PieChart className="h-5 w-5" />, label: "News" },
-        { to: "/settings", icon: <User className="h-5 w-5" />, label: "Settings" },
+        { to: "/news", icon: <Newspaper className="h-5 w-5" />, label: "News" },
+        { to: "/settings", icon: <Settings className="h-5 w-5" />, label: "Settings" },
     ];
 
     return (
@@ -20,7 +20,7 @@ export const MobileNav = () => {
                     key={item.to}
                     to={item.to}
                     className={`flex flex-col items-center text-sm ${
-                        pathname === item.to ? "text-blue-500" : "text-muted"
+                        pathname === item.to ? "text-blue-500" : "text-muted-foreground"
                     }`}
                 >
                     {item.icon}
