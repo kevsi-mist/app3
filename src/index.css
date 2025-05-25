@@ -1,0 +1,101 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 96%; /* Light mode background - #f5f5f5 */
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 230 48% 48%; /* Medium blue - #3f51b5 */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    --royal: 260 60% 55%;
+    
+    /* Sidebar specific variables */
+    --sidebar-width-expanded: 16rem; /* 256px */
+    --sidebar-width-collapsed: 4rem; /* 64px */
+  }
+
+  .dark {
+    --background: 0 0% 7%; /* Dark mode background - #121212 */
+    --foreground: 0 0% 100%; /* White text - #ffffff */
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 235 85% 31%; /* Deep blue - #1a237e */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.5% 48%;
+    --royal: 260 70% 65%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color 0.3s, color 0.3s;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Sidebar transitions */
+.sidebar-transition {
+  transition-property: width, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-transition {
+  transition-property: margin-left, width;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes highlight-blink {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  50% {
+    background-color: rgba(79, 70, 229, 0.1);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.highlight-animation {
+  animation: highlight-blink 1s ease-in-out;
+}
