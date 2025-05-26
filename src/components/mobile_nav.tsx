@@ -11,6 +11,7 @@ export const MobileNav = () => {
         { to: "/reports", icon: <PieChart className="h-5 w-5" />, label: "Reports" },
         { to: "/news", icon: <Newspaper className="h-5 w-5" />, label: "News" },
         { to: "/settings", icon: <Settings className="h-5 w-5" />, label: "Settings" },
+        { to: "/billings", icon: <User className="h-5 w-5" />, label: "Billing" },
     ];
 
     return (

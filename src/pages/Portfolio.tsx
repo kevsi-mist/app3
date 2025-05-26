@@ -24,11 +24,9 @@ export default function Portfolio() {
   const toggleSector = (sector: string) => {
     const isOpen = expandedSectors.includes(sector);
     if (isOpen) {
-      // Close the graph if already open
       setExpandedSectors([]);
       setIsGraphOpen(false);
     } else {
-      // Open the graph for this sector only
       setExpandedSectors([sector]);
       setIsGraphOpen(true);
     }
@@ -57,13 +55,10 @@ export default function Portfolio() {
     }
   };
 
-  // New handler for stock selection within Asset Allocation
   const handleStockSelectInAllocation = (stock: Stock) => {
     if (stockDetailInAllocation?.symbol === stock.symbol) {
-      // If same stock is clicked, close the detail view
       setStockDetailInAllocation(null);
     } else {
-      // Open detail view for this stock
       setStockDetailInAllocation(stock);
     }
   };
@@ -73,31 +68,30 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-[#fefefe] font-sans flex flex-col ">
+    <div className="min-h-screen bg-[#121212] text-[#fefefe] font-sans flex flex-col">
       <PortfolioHeader />
 
-      <main className="flex-1 max-w-7xl mx-auto px-6 lg:px-8 py-12 space-y-12">
+      <main className="flex-1 max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-6 md:py-12 space-y-8 md:space-y-12">
         {/* Stock Details (from main selection) */}
         {selectedStock && (
-          <div className="rounded-3xl p-6 bg-[#1e1e1e] shadow-xl hover:shadow-[0_0_15px_#3b7cc9] transition-all duration-300">
+          <div className="rounded-2xl md:rounded-3xl p-4 md:p-6 bg-[#1e1e1e] shadow-xl hover:shadow-[0_0_15px_#3b7cc9] transition-all duration-300">
             <StockDetailAnalysis stock={selectedStock} />
           </div>
         )}
 
         {/* Performance and Asset Allocation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="rounded-3xl p-6 bg-[#1e1e1e] shadow-md hover:shadow-[0_0_12px_#3b7cc9] transition-all duration-300">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+          <div className="rounded-2xl md:rounded-3xl p-4 md:p-6 bg-[#1e1e1e] shadow-md hover:shadow-[0_0_12px_#3b7cc9] transition-all duration-300">
             <PortfolioPerformance />
           </div>
 
-          <div className="relative rounded-3xl p-6 bg-[#1e1e1e] shadow-md hover:shadow-[0_0_18px_#3b7cc9] transition-all duration-300">
-
+          <div className="relative rounded-2xl md:rounded-3xl p-4 md:p-6 bg-[#1e1e1e] shadow-md hover:shadow-[0_0_18px_#3b7cc9] transition-all duration-300">
             <AssetAllocation
               sectorAllocations={sectorAllocations}
               expandedSectors={expandedSectors}
               toggleSector={toggleSector}
               selectedStock={selectedStock}
-              handleStockSelect={handleStockSelectInAllocation} // Use the new handler
+              handleStockSelect={handleStockSelectInAllocation}
               getSectorColor={getSectorColor}
             />
           </div>
@@ -105,7 +99,7 @@ export default function Portfolio() {
 
         {/* Holdings table - Hidden only when stock detail is open in Asset Allocation */}
         {!selectedStock && !stockDetailInAllocation && (
-          <div className="rounded-3xl p-6 bg-[#1e1e1e] shadow-md hover:shadow-[0_0_12px_#3b7cc9] transition-all duration-300">
+          <div className="rounded-2xl md:rounded-3xl p-4 md:p-6 bg-[#1e1e1e] shadow-md hover:shadow-[0_0_12px_#3b7cc9] transition-all duration-300 overflow-x-auto">
             <HoldingsTable
               stocks={stocks}
               selectedStock={selectedStock}
@@ -116,21 +110,21 @@ export default function Portfolio() {
 
         {/* Additional content when stock detail is open in Asset Allocation */}
         {stockDetailInAllocation && (
-          <div className="relative rounded-3xl p-6 bg-[#1e1e1e] shadow-xl hover:shadow-[0_0_15px_#3b7cc9] transition-all duration-300 border border-[#3b7cc9]/20">
+          <div className="relative rounded-2xl md:rounded-3xl p-4 md:p-6 bg-[#1e1e1e] shadow-xl hover:shadow-[0_0_15px_#3b7cc9] transition-all duration-300 border border-[#3b7cc9]/20">
             {/* Close Button for Stock Detail - Top Left */}
             <button
               onClick={handleCloseStockDetail}
-              className="absolute top-4 left-4 z-30 px-4 py-2 rounded-full bg-[#3b7cc9] hover:bg-[#326bb5] transition-all duration-200 text-white font-semibold shadow-lg shadow-[#3b7cc9]/40 hover:shadow-[0_0_12px_#3b7cc9] transform hover:scale-105"
+              className="absolute top-2 md:top-4 left-2 md:left-4 z-30 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#3b7cc9] hover:bg-[#326bb5] transition-all duration-200 text-white font-semibold shadow-lg shadow-[#3b7cc9]/40 hover:shadow-[0_0_12px_#3b7cc9] transform hover:scale-105 text-sm md:text-base"
               aria-label="Close Stock Detail"
             >
               ✕ Close
             </button>
             
-            <div className="flex items-center justify-between mb-6 pt-8">
-              <h2 className="text-2xl font-bold text-[#fefefe]">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 md:mb-6 pt-6 md:pt-8 gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-[#fefefe]">
                 Stock Analysis: {stockDetailInAllocation.symbol}
               </h2>
-              <div className="flex items-center gap-2 text-sm text-[#fefefe]/70">
+              <div className="flex items-center gap-2 text-xs md:text-sm text-[#fefefe]/70">
                 <div 
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: getSectorColor(stockDetailInAllocation.sector) }}
@@ -159,7 +153,6 @@ export default function Portfolio() {
           }
         }
 
-        /* Smooth fade-in animation for stock details */
         .stock-detail-enter {
           opacity: 0;
           transform: translateY(20px);
@@ -173,12 +166,10 @@ export default function Portfolio() {
           }
         }
 
-        /* Button hover effects */
         button:hover {
           transform: translateY(-1px);
         }
 
-        /* Enhanced shadow effects */
         .shadow-glow {
           box-shadow: 0 0 20px rgba(59, 124, 201, 0.3);
         }

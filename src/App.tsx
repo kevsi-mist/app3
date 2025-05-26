@@ -13,7 +13,7 @@ import Settings from '@/pages/Settings';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import { SidebarNav } from '@/components/SidebarNav';
-import { MobileNav } from '@/components/MobileNav';
+import { MobileNav } from '@/components/mobile_nav';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { FinanceProvider } from '@/contexts/FinanceContext';
 

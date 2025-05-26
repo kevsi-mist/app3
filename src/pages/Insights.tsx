@@ -31,12 +31,12 @@ export default function Insights() {
   }, []);
 
   return (
-    <main className="p-6 overflow-auto bg-[#121212] min-h-screen text-white font-sans">
+    <main className="p-4 sm:p-6 overflow-auto bg-[#121212] min-h-screen text-white font-sans">
       <div className="space-y-8 max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">Stock Insights</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Stock Insights</h1>
             <p className="text-muted-foreground text-sm mt-1 max-w-md">
               AI-powered market analysis and stock recommendations.
             </p>
@@ -55,38 +55,38 @@ export default function Insights() {
 
         {/* Content */}
         {loading ? (
-          <div className="grid gap-2 lg:grid-cols-2">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
             {Array(4)
               .fill(0)
               .map((_, i) => (
                 <div
                   key={i}
-                  className="border border-gray-700 rounded-xl p-6 space-y-4 animate-pulse bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-                  style={{ minHeight: 280 }}
+                  className="border border-gray-700 rounded-xl p-4 sm:p-6 space-y-4 animate-pulse bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+                  style={{ minHeight: 220 }}
                 >
                   <div className="flex justify-between items-center">
-                    <div className="h-6 w-[180px] bg-gray-700 rounded-md" />
-                    <div className="h-5 w-[60px] bg-gray-700 rounded-md" />
+                    <div className="h-6 w-[120px] sm:w-[180px] bg-gray-700 rounded-md" />
+                    <div className="h-5 w-[40px] sm:w-[60px] bg-gray-700 rounded-md" />
                   </div>
                   <div className="h-4 w-full bg-gray-700 rounded-md" />
                   <div className="h-4 w-3/4 bg-gray-700 rounded-md" />
                   <div className="flex gap-2">
-                    <div className="h-6 w-16 bg-gray-700 rounded-md" />
-                    <div className="h-6 w-16 bg-gray-700 rounded-md" />
+                    <div className="h-6 w-12 sm:w-16 bg-gray-700 rounded-md" />
+                    <div className="h-6 w-12 sm:w-16 bg-gray-700 rounded-md" />
                   </div>
-                  <div className="h-[180px] w-full bg-gray-700 rounded-md" />
+                  <div className="h-[100px] sm:h-[180px] w-full bg-gray-700 rounded-md" />
                 </div>
               ))}
           </div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
             {insights.map((insight, index) => (
               <div
                 key={insight.id}
                 style={{ animationDelay: `${index * 150}ms` }}
                 className="transform transition-transform hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-700 rounded-xl border border-gradient p-[1.5px] bg-gradient-to-r from-blue-800 via-purple-800 to-pink-700"
               >
-                <div className="bg-[#121212] rounded-lg p-6 shadow-md shadow-black/40 animate-fadeInUp">
+                <div className="bg-[#121212] rounded-lg p-4 sm:p-6 shadow-md shadow-black/40 animate-fadeInUp">
                   <StockInsightCard {...insight} useFiscalPrice={true} />
                 </div>
               </div>
@@ -121,7 +121,8 @@ export default function Insights() {
           border-image-source: linear-gradient(
             to right,
             #4f46e5,
-          
+            #a21caf,
+            #db2777
           );
         }
       `}</style>
