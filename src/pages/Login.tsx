@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+// import the correct database instance from your Firebase setup
+import { db } from '@/lib/firebase'; // adjust 'db' to match your actual export
+import { doc, setDoc } from 'firebase/firestore';
+import { toast } from "sonner";
+
 
 const ANALYSIS_STATEMENTS = [
   "Analyzing portfolio data...",
@@ -156,9 +161,42 @@ function LoginForm({ switchToRegister, closeModal }: { switchToRegister: () => v
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Simulate success login (Replace with real logic)
-    navigate("/dashboard");
-    closeModal();
+    const isLogin = true; // Assume login mode for this example
+    // Validate email and password
+    if (!email.includes("@") || !email.includes(".")) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    if (email && password) {
+      if (!isLogin) {
+        // Register user data in Firebase Realtime Database
+        const userId = email.replace(/[.@]/g, "_"); // basic sanitation for key
+        setDoc(doc(db, 'users', userId), {
+          email: email,
+          password: password,
+          createdAt: new Date().toISOString(),
+        })
+        .then(() => {
+          toast("Account created!", {
+            description: "Welcome to invest.app",
+          });
+          navigate('/dashboard');
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+      } else {
+        // Simulate login success
+        toast("Login successful!", {
+          description: "Welcome back to invest.app",
+        });
+        navigate('/dashboard');
+      }
+      closeModal();
+    } else {
+      toast.error('Please fill in all fields');
+    }
   }
 
   return (
@@ -170,7 +208,7 @@ function LoginForm({ switchToRegister, closeModal }: { switchToRegister: () => v
         placeholder="Email"
         className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-[#3b7cc9] text-[#fefefe]"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
         required
       />
 
@@ -179,7 +217,7 @@ function LoginForm({ switchToRegister, closeModal }: { switchToRegister: () => v
         placeholder="Password"
         className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-[#3b7cc9] text-[#fefefe]"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
         required
       />
 
@@ -212,13 +250,43 @@ function RegisterForm({ switchToLogin, closeModal }: { switchToLogin: () => void
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (password !== confirm) {
-      alert("Passwords do not match");
+    
+    // Validate email format
+    if (!email.includes("@") || !email.includes(".")) {
+      toast.error('Please enter a valid email address');
       return;
     }
-    // Simulate success registration (Replace with real logic)
-    navigate("/dashboard");
-    closeModal();
+
+    // Check if passwords match
+    if (password !== confirm) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    // Check if all fields are filled
+    if (!email || !password || !confirm) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+
+    // Register user data in Firebase Firestore
+    const userId = email.replace(/[.@]/g, "_"); // basic sanitation for key
+    setDoc(doc(db, 'users', userId), {
+      email: email,
+      password: password,
+      createdAt: new Date().toISOString(),
+    })
+    .then(() => {
+      toast("Account created successfully!", {
+        description: "Welcome to Imbue.ai! You can now login.",
+      });
+      closeModal();
+      // Switch to login form after successful registration
+      switchToLogin();
+    })
+    .catch((error) => {
+      toast.error(`Registration failed: ${error.message}`);
+    });
   }
 
   return (
@@ -272,7 +340,6 @@ function RegisterForm({ switchToLogin, closeModal }: { switchToLogin: () => void
     </form>
   );
 }
-
 // The rest of your components remain unchanged below:
 
 function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc: string }) {
