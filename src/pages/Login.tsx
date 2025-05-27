@@ -506,12 +506,12 @@ function Contact() {
           <p className="flex items-center gap-2">
             <span role="img" aria-label="instagram">📸</span>
             <a
-              href="https://instagram.com/shlokshah"
+              href="https://instagram.com/"shah.shlok_"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#82c0ff] transition"
             >
-              @shlokshah
+              @shah.shlok_
             </a>
           </p>
         </div>
