@@ -490,7 +490,7 @@ function Contact() {
               href="mailto:shlokshah@gmail.com"
               className="hover:text-[#82c0ff] transition"
             >
-              shlokshah@gmail.com
+              shloks8267@gmail.com
             </a>
           </p>
           <p className="flex items-center gap-2">
