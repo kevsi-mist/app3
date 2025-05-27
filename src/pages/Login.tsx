@@ -496,11 +496,11 @@ function Contact() {
           <p className="flex items-center gap-2">
             <span role="img" aria-label="phone">📞</span>
             <a
-              href="tel:+916357243095"
+              href="tel:+918490827607"
               target="_blank"
               className="hover:text-[#82c0ff] transition"
             >
-              6357243095
+              8490827607
             </a>
           </p>
           <p className="flex items-center gap-2">
