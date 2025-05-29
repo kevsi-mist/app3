@@ -16,6 +16,7 @@ import { SidebarNav } from '@/components/SidebarNav';
 import { MobileNav } from '@/components/mobile_nav';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { FinanceProvider } from '@/contexts/FinanceContext';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 
 // Layout component to wrap all pages with a sidebar
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
@@ -45,13 +46,41 @@ function App() {
           <AppLayout>
             <Routes>
               <Route path="/" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/insights" element={<Insights />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/billing" element={<Billing />} />
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/portfolio" element={
+                <ProtectedRoute>
+                  <Portfolio />
+                </ProtectedRoute>
+              } />
+              <Route path="/insights" element={
+                <ProtectedRoute>
+                  <Insights />
+                </ProtectedRoute>
+              } />
+              <Route path="/reports" element={
+                <ProtectedRoute>
+                  <Reports />
+                </ProtectedRoute>
+              } />
+              <Route path="/news" element={
+                <ProtectedRoute>
+                  <News />
+                </ProtectedRoute>
+              } />
+              <Route path="/settings" element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              } />
+              <Route path="/billing" element={
+                <ProtectedRoute>
+                  <Billing />
+                </ProtectedRoute>
+              } />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AppLayout>
@@ -61,5 +90,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
